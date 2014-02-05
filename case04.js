@@ -7,13 +7,23 @@ var doSleep = true;
 var world = new b2World(worldAABB, gravity, doSleep);
 
 // 図形を定義してエンジンに追加
-var boxSd = new b2BoxDef();
-boxSd.density = 1.0;
-boxSd.extents.Set(20, 100);
+var circleSd = new b2CircleDef();
+circleSd.density = 1.0;
+circleSd.radius = 10.0;
 var bd = new b2BodyDef();
-bd.AddShape(boxSd);
-bd.position.Set(250, 100);
-var body = world.CreateBody(bd);
+
+var offsetX = 250;
+var offsetY = 250
+for (i = 0; i < 3; i++) {
+	for (j = 0; j < 3; j++) {
+		bd.AddShape(circleSd);
+		bd.position.Set(offsetX + 20*i, offsetY + 20*j);
+		world.CreateBody(bd);
+		offsetX -= 10;
+	}
+	offsetY += 10;
+}
+
 
 // 地面用に固定された四角をエンジンに追加
 var groundSd = new b2BoxDef();
